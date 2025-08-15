@@ -11,4 +11,5 @@ def add(a:float, b:float)-> float:
 
 @mcp.tool()
 def subtract(a:float, b:float)-> float:
+    """returns remaining of the numbers"""
     return a-b
