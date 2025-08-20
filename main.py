@@ -14,6 +14,12 @@ class SeleniumAgentTools:
 
     async def get_title(self) -> str:
         return await self.browser.get_title()
+    
+    async def click(self, ID : str):
+        return await self.browser.click()
+    
+    async def send_keys(self, ID: str, value: str):
+        return await self.browser.send_keys()
 
     def shutdown(self):
         self.browser.stop_browser()
@@ -29,6 +35,16 @@ async def open_url(url: str) -> str:
 async def get_title() -> str:
     """gets the title of the current page"""
     return await agent.get_title()
+
+@mcp.tool()
+async def click(ID: str):
+    """Clicks on the element identified using ID"""
+    return await agent.click(ID)
+
+@mcp.tool()
+async def send_keys(ID: str, value: str):
+    """Inserts value to the element identified using ID"""
+    return await agent.send_keys(ID)
 
 @mcp.tool()
 def quit_browser():

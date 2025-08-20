@@ -1,5 +1,6 @@
 import asyncio
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 
@@ -34,6 +35,21 @@ class BrowserManager():
         if not self.driver:
             self.start_browser()
         return await asyncio.to_thread(lambda: self.driver.title)
+    
+    async def click(self, ID: str) -> str:
+        if not self.driver:
+            self.start_browser()
+        return await asyncio.to_thread(lambda: self.driver.find_element(By.ID, ID).click)
+    
+    async def send_keys(self, ID: str, value: str) ->str:
+        if not self.driver:
+            self.start_browser()
+        def _send():
+            text_field = self.driver.find_element(By.ID, ID)
+            text_field.clear()
+            text_field.send_keys(value)
+        return await asyncio.to_thread(_send)
+        
     
     def stop_browser(self):
         if self.driver:
