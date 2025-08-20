@@ -39,16 +39,19 @@ class BrowserManager():
     async def click(self, ID: str) -> str:
         if not self.driver:
             self.start_browser()
-        return await asyncio.to_thread(lambda: self.driver.find_element(By.ID, ID).click)
+        def _click(ID:str):
+            el = self.driver.find_element(By.ID, ID)
+            el.click()
+        return await asyncio.to_thread(_click, ID)
     
     async def send_keys(self, ID: str, value: str) ->str:
         if not self.driver:
             self.start_browser()
-        def _send():
+        def _send(ID:str, value:str):
             text_field = self.driver.find_element(By.ID, ID)
             text_field.clear()
             text_field.send_keys(value)
-        return await asyncio.to_thread(_send)
+        return await asyncio.to_thread(_send, ID, value)
         
     
     def stop_browser(self):

@@ -15,11 +15,11 @@ class SeleniumAgentTools:
     async def get_title(self) -> str:
         return await self.browser.get_title()
     
-    async def click(self, ID : str):
-        return await self.browser.click()
+    async def click(self, ID : str) -> str:
+        return await self.browser.click(ID)
     
     async def send_keys(self, ID: str, value: str):
-        return await self.browser.send_keys()
+        return await self.browser.send_keys(ID,value)
 
     def shutdown(self):
         self.browser.stop_browser()
@@ -44,7 +44,7 @@ async def click(ID: str):
 @mcp.tool()
 async def send_keys(ID: str, value: str):
     """Inserts value to the element identified using ID"""
-    return await agent.send_keys(ID)
+    return await agent.send_keys(ID, value)
 
 @mcp.tool()
 def quit_browser():
